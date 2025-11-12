@@ -1,15 +1,10 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
-// Use require-style import to avoid build-time/esModuleInterop differences in CI (Vercel)
-// keep it untyped so the factory call `cookieParser()` is allowed in all TS configs
-const cookieParser = require('cookie-parser');
+import * as cookieParser from 'cookie-parser';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-
-  // Enable cookie parsing
-  app.use(cookieParser());
 
   app.useGlobalPipes(new ValidationPipe({
     whitelist: true,
